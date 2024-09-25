@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Sistema Bancario</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            color: #333;
+        }
+        h2 {
+            color: #555;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            margin: 10px 0;
+        }
+        a {
+            text-decoration: none;
+            color: #007BFF;
+            font-weight: bold;
+        }
+        a:hover {
+            color: #0056b3;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Bienvenido al Sistema Bancario</h1>
+
+    <h2>Operaciones Disponibles</h2>
+    <ul>
+        <li><a th:href="@{/deposito}">Realizar Depósito</a></li>
+        <li><a th:href="@{/retiro}">Realizar Retiro</a></li>
+        <li><a th:href="@{/transferencia}">Realizar Transferencia</a></li>
+    </ul>
+
+    <h2>Gestión de Cuentas</h2>
+    <ul>
+        <li><a th:href="@{/cuentas}">Gestionar Cuentas</a></li>
+    </ul>
+
+    <h2>Gestión de Clientes</h2>
+    <ul>
+        <li><a th:href="@{/clientes}">Gestionar Clientes</a></li>
+    </ul>
+</body>
+</html>
