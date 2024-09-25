@@ -4,6 +4,7 @@ import com.sistema.demo.modelos.Cuenta;
 import com.sistema.demo.repositorios.CuentaRepository;
 import com.sistema.demo.websocket.CuentaWebSocketHandler;
 
+import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,9 @@ public class CuentaService {
     @Autowired
     private CuentaWebSocketHandler cuentaWebSocketHandler;
 
+    @Autowired
+    private EntityManager entityManager;
+
     private final Object lock = new Object();
 
     public List<Cuenta> obtenerTodasLasCuentas() {
@@ -36,22 +40,25 @@ public class CuentaService {
     }
 
     @Transactional
-    public boolean retirar(Long idCuenta, Float monto) throws InterruptedException {
+    public Cuenta retirar(Long idCuenta, Float monto) throws InterruptedException {
         synchronized (lock) {
             while (true) {
+                entityManager.clear();
+
                 Cuenta cuenta = cuentaRepository.findById(idCuenta)
                         .orElseThrow(() -> new RuntimeException("Cuenta no encontrada"));
 
                 if (cuenta.getSaldo() >= monto) {
                     cuenta.setSaldo(cuenta.getSaldo() - monto);
                     cuentaRepository.save(cuenta);
-                    cuentaWebSocketHandler.sendUpdate(cuenta);
-                    return true;
+                    System.out.println("nuevo saldo: " + cuenta.getSaldo());
+                    return cuenta;
                 }
 
                 System.out.println("Hilo entra en estado de espera por saldo insuficiente");
                 lock.wait(); // Espera hasta que se notifique
-                return false;
+                System.out.println("Esperamos 10 segundos...");
+                Thread.sleep(10000);
             }
         }
     }
@@ -87,7 +94,7 @@ public class CuentaService {
                     Thread.currentThread().interrupt(); // Restaura el estado de interrupción
                     throw new RuntimeException("La transferencia fue interrumpida.");
                 }
-                
+
             }
 
             cuentaOrigen.setSaldo(cuentaOrigen.getSaldo() - monto);

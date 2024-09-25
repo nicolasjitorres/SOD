@@ -83,10 +83,6 @@ public class CuentaController {
     @PostMapping("/retirar")
     public String retirar(@RequestParam Long idCuenta, @RequestParam Float monto, Model model) {
         try {
-            if (cuentaService.retirar(idCuenta, monto)) {
-                return "redirect:/cuentas"; // Redirige a la lista de cuentas después de un retiro exitoso
-            }
-
             cuentaService.retirar(idCuenta, monto);
             return "redirect:/cuentas";
 
