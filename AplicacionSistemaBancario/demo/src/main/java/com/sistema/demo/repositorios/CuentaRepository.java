@@ -17,6 +17,8 @@ public interface CuentaRepository extends JpaRepository<Cuenta, Long> {
 
     @Query("SELECT c FROM Cuenta c WHERE c.id = :id")
     Cuenta findByIdWithoutCache(@Param("id") Long id);
-    
+
     List<Cuenta> findByTipoCuenta(String tipoCuenta);
+
+    boolean existsByClienteId(Long clienteId);
 }

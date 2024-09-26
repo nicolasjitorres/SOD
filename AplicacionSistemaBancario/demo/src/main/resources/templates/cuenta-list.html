@@ -68,6 +68,10 @@
             color: red;
             margin-bottom: 20px;
         }
+        .success {
+            color: green;
+            margin-bottom: 20px;
+        }
     </style>
 </head>
 <body>
@@ -76,6 +80,11 @@
     <!-- Mostrar mensaje de error -->
     <div th:if="${error}" class="error">
         <p th:text="${error}"></p>
+    </div>
+
+    <!-- Mostrar mensaje de éxito -->
+    <div th:if="${success}" class="success">
+        <p th:text="${success}"></p>
     </div>
 
     <table>
@@ -114,7 +123,7 @@
         <input type="text" name="tipoCuenta" placeholder="Tipo de Cuenta" required />
         <input type="number" name="saldo" placeholder="Saldo Inicial" min="0" step="0.01" required />
         <select name="clienteId" required>
-            <option th:each="cliente : ${clientes}" th:value="${cliente.id}" th:text="${cliente.nombre}"></option>
+            <option th:each="cliente : ${clientesSC}" th:value="${cliente.id}" th:text="${cliente.nombre}"></option>
         </select>
         <button type="submit">Agregar</button>
     </form>

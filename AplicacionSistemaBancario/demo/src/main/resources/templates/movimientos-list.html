@@ -47,6 +47,9 @@
         .back-link {
             margin-top: 20px;
         }
+        .no-movimientos {
+            color: orange;
+        }
     </style>
 </head>
 <body>
@@ -65,12 +68,14 @@
     <p><strong>Saldo Actual:</strong> <span th:text="${cuenta.saldo}"></span></p>
 
     <h2>Movimientos</h2>
-    <table>
+    <div th:if="${#lists.isEmpty(movimientos)}" class="no-movimientos">
+        <p>No hay movimientos para esta cuenta.</p>
+    </div>
+    <table th:if="${!#lists.isEmpty(movimientos)}">
         <thead>
             <tr>
                 <th>ID</th>
                 <th>Descripción</th>
-                <th>Fecha</th>
                 <th>Monto</th>
             </tr>
         </thead>
@@ -78,7 +83,6 @@
             <tr th:each="movimiento : ${movimientos}">
                 <td th:text="${movimiento.id}"></td>
                 <td th:text="${movimiento.descripcion}"></td>
-                <td th:text="${movimiento.fecha}"></td>
                 <td th:text="${movimiento.monto}"></td>
             </tr>
         </tbody>

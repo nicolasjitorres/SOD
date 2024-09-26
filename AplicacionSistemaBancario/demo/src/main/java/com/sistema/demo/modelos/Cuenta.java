@@ -5,8 +5,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
 
-import java.util.List;
-
 @Entity
 @Data
 @NoArgsConstructor
@@ -16,8 +14,9 @@ public class Cuenta {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "id_cliente", nullable = false) // Asegura que no sea nulo
+    @OneToOne
+    @MapsId
+    @JoinColumn(name = "id_cliente", nullable = false)
     private Cliente cliente;
 
     private String tipoCuenta;
@@ -27,7 +26,14 @@ public class Cuenta {
 
     private Boolean estado;
 
-    @OneToMany(mappedBy = "cuenta", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Movimiento> movimientos;
+    @Override
+    public String toString() {
+        return "Cuenta{" +
+                "id=" + id +
+                ", tipoCuenta='" + tipoCuenta + '\'' +
+                // Puedes mostrar solo una parte del cliente para evitar recursión
+                ", clienteId=" + (cliente != null ? cliente.getId() : null) +
+                '}';
+    }
 
 }

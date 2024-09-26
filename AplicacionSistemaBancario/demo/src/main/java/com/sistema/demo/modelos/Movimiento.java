@@ -1,5 +1,7 @@
 package com.sistema.demo.modelos;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,6 +18,7 @@ public class Movimiento {
 
     @ManyToOne
     @JoinColumn(name = "id_cuenta", nullable = false)
+    @JsonIgnore
     private Cuenta cuenta;
 
     private String descripcion;
