@@ -44,7 +44,7 @@ function Login() {
       <h2>Iniciar Sesión</h2>
       <form onSubmit={handleLogin}>
         <input
-          type="text"
+          type="number"
           placeholder="Número de cuenta"
           value={accountId}
           onChange={(e) => setAccountId(e.target.value)}

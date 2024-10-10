@@ -17,14 +17,18 @@ function Home() {
       <h2>Bienvenido al Sistema</h2>
       <h3>Numero de cuenta: {accountId}</h3>
       <Link to="/sistema-bancario">
-        <button>Sistema Bancario</button>
+        <button>Homebanking</button>
       </Link>
+      <br />
       <Link to="/cajero">
-        <button>Cajero</button>
+        <button>Cajero automático</button>
       </Link>
+      <br />
+
       <Link to="/posnet">
         <button>Posnet</button>
       </Link>
+      <br />
       <Link to="/historial">
         <button>Historial de Transferencias</button>
       </Link>
