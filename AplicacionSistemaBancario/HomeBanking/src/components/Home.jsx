@@ -14,19 +14,10 @@ function Home() {
 
   return (
     <div>
-      <h2>Bienvenido al Sistema</h2>
+      <h2>Bienvenido al Homebanking</h2>
       <h3>Numero de cuenta: {accountId}</h3>
       <Link to="/sistema-bancario">
-        <button>Homebanking</button>
-      </Link>
-      <br />
-      <Link to="/cajero">
-        <button>Cajero automático</button>
-      </Link>
-      <br />
-
-      <Link to="/posnet">
-        <button>Posnet</button>
+        <button>Acciones</button>
       </Link>
       <br />
       <Link to="/historial">
