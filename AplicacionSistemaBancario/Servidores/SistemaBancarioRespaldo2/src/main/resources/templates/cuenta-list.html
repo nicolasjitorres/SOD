@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Cuentas</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            color: #333;
+        }
+        h2 {
+            margin-top: 20px;
+            color: #555;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        th, td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+        th {
+            background-color: #007BFF;
+            color: white;
+        }
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+        form {
+            display: inline;
+        }
+        input[type="text"], input[type="number"], select {
+            padding: 10px;
+            margin-right: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            background-color: #007BFF;
+            color: white;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        a {
+            text-decoration: none;
+            color: #007BFF;
+            margin-top: 20px;
+            display: inline-block;
+        }
+        a:hover {
+            color: #0056b3;
+        }
+        .error {
+            color: red;
+            margin-bottom: 20px;
+        }
+        .success {
+            color: green;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Lista de Cuentas</h1>
+
+    <!-- Mostrar mensaje de error -->
+    <div th:if="${error}" class="error">
+        <p th:text="${error}"></p>
+    </div>
+
+    <!-- Mostrar mensaje de éxito -->
+    <div th:if="${success}" class="success">
+        <p th:text="${success}"></p>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Cliente</th>
+                <th>Tipo de Cuenta</th>
+                <th>Saldo</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="cuenta : ${cuentas}">
+                <td th:text="${cuenta.id}"></td>
+                <td th:text="${cuenta.cliente.nombre}"></td>
+                <td th:text="${cuenta.tipoCuenta}"></td>
+                <td th:text="${cuenta.saldo}"></td>
+                <td>
+                    <!-- Formulario para retirar saldo -->
+                    <form th:action="@{/cuentas/retirar}" method="post">
+                        <input type="hidden" name="idCuenta" th:value="${cuenta.id}"/>
+                        <input type="number" name="monto" placeholder="Monto" min="0" step="0.01" required />
+                        <button type="submit">Retirar</button>
+                    </form>
+
+                    <!-- Botón para ver movimientos -->
+                    <a th:href="@{/cuentas/{id}/movimientos(id=${cuenta.id})}" class="btn-movimientos">Ver movimientos</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>Agregar Cuenta</h2>
+    <form th:action="@{/cuentas/crear}" method="post">
+        <input type="text" name="tipoCuenta" placeholder="Tipo de Cuenta" required />
+        <input type="number" name="saldo" placeholder="Saldo Inicial" min="0" step="0.01" required />
+        <select name="clienteId" required>
+            <option th:each="cliente : ${clientesSC}" th:value="${cliente.id}" th:text="${cliente.nombre}"></option>
+        </select>
+        <button type="submit">Agregar</button>
+    </form>
+
+    <a href="/">Volver al inicio</a>
+</body>
+</html>

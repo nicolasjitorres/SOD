@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Movimientos de la Cuenta</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            color: #333;
+        }
+        h2 {
+            margin-top: 20px;
+            color: #555;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        th, td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+        th {
+            background-color: #007BFF;
+            color: white;
+        }
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+        a {
+            text-decoration: none;
+            color: #007BFF;
+            margin-top: 20px;
+            display: inline-block;
+        }
+        a:hover {
+            color: #0056b3;
+        }
+        .back-link {
+            margin-top: 20px;
+        }
+        .no-movimientos {
+            color: orange;
+        }
+    </style>
+</head>
+<body>
+    <h1>Movimientos de la Cuenta</h1>
+
+    <!-- Mostrar mensaje de error -->
+    <div th:if="${error}" style="color: red;">
+        <p th:text="${error}"></p>
+    </div>
+
+    <!-- Detalles de la cuenta -->
+    <h2>Detalles de la Cuenta</h2>
+    <p><strong>ID de la Cuenta:</strong> <span th:text="${cuenta.id}"></span></p>
+    <p><strong>Cliente:</strong> <span th:text="${cuenta.cliente.nombre}"></span></p>
+    <p><strong>Tipo de Cuenta:</strong> <span th:text="${cuenta.tipoCuenta}"></span></p>
+    <p><strong>Saldo Actual:</strong> <span th:text="${cuenta.saldo}"></span></p>
+
+    <h2>Movimientos</h2>
+    <div th:if="${#lists.isEmpty(movimientos)}" class="no-movimientos">
+        <p>No hay movimientos para esta cuenta.</p>
+    </div>
+    <table th:if="${!#lists.isEmpty(movimientos)}">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Descripción</th>
+                <th>Monto</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="movimiento : ${movimientos}">
+                <td th:text="${movimiento.id}"></td>
+                <td th:text="${movimiento.descripcion}"></td>
+                <td th:text="${movimiento.monto}"></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="/cuentas" class="back-link">Volver a la lista de cuentas</a>
+</body>
+</html>
