@@ -2,6 +2,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "SistemaBancarioRespaldo2",
+            "request": "launch",
+            "mainClass": "com.sistema.sistemaR2.SistemaBancarioRespaldo2",
+            "projectName": "Banco (3)"
+        },
+        {
+            "type": "java",
             "name": "SistemaBancarioRespaldo1",
             "request": "launch",
             "mainClass": "com.sistema.sistemaR1.SistemaBancarioRespaldo1",

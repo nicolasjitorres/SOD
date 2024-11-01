@@ -17,8 +17,10 @@ public class Token {
     private Long id;
 
     @OneToOne
-    @JoinColumn(name = "id_cuenta", nullable = false)
+    @JoinColumn(name = "id_cuenta")
     @JsonIgnore
     private Cuenta cuenta;
+
+    private boolean enUso;
 
 }

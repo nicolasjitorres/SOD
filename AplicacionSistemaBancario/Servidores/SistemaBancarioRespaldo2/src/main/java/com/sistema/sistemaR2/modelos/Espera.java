@@ -1,4 +1,4 @@
-package com.sistema.sistemaR1.modelos;
+package com.sistema.sistemaR2.modelos;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -11,7 +11,7 @@ import lombok.AllArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Token {
+public class Espera {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -20,7 +20,5 @@ public class Token {
     @JoinColumn(name = "id_cuenta")
     @JsonIgnore
     private Cuenta cuenta;
-
-    private boolean enUso;
 
 }

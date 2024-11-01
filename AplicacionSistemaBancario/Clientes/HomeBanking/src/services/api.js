@@ -22,6 +22,7 @@ const hacerSolicitud = async (method, url, data = null) => {
       if (error.response) {
         console.warn(`Error en el servidor ${server}: ${error.response.data}`);
         mensaje = error.response.data;
+        break;
       } else {
         console.warn(`Error en el servidor ${server}: ${error.message}`);
       }

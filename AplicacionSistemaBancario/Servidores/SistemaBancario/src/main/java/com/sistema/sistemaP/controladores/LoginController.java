@@ -52,9 +52,11 @@ public class LoginController {
 
             if (token.getCuenta().getId().equals(accountId)) {
                 if (token.isEnUso()) {
+                    System.out.println("chau");
                     return ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE)
                             .body("¡Esta cuenta esta siendo usada desde otro cliente!");
                 }
+                System.out.println("hola");
                 token.setEnUso(true);
                 tokenRepository.saveAndFlush(token);
                 return ResponseEntity.ok()
