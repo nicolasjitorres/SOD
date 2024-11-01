@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { iniciarSesion } from '../../../HomeBanking/src/services/api';
 
 function Login() {
   const [accountId, setAccountId] = useState('');
@@ -23,19 +23,16 @@ function Login() {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:8080/login', {
-        accountId,
-        password,
-      });
-      console.log(response.data);
+      const response = await iniciarSesion(accountId, password);
+      console.log(response);
       
-      if (response.status === 200) {
-        localStorage.setItem("accountId", response.data.accountId);
-        localStorage.setItem("saldo", response.data.saldo);
+      if (response) {
+        localStorage.setItem("accountId", response.accountId);
+        localStorage.setItem("saldo", response.saldo);
         navigate('/home'); 
       }
     } catch (err) {
-      setError('Credenciales inválidas' + err.message);
+      setError('Error: ' + err.message);
     }
   };
 

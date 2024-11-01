@@ -1,0 +1,21 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "SistemaBancarioRespaldo1",
+            "request": "launch",
+            "mainClass": "com.sistema.sistemaR1.SistemaBancarioRespaldo1",
+            "projectName": "Banco"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-SistemaBancario<com.sistema-demo>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.sistema.sistemaP.SistemaBancario",
+            "projectName": "com.sistema-demo",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}

@@ -17,11 +17,10 @@ import com.sistema.sistemaR2.repositorios.MovimientoRepository;
 import com.sistema.sistemaR2.servicios.ClienteService;
 import com.sistema.sistemaR2.servicios.CuentaService;
 
-import jakarta.websocket.server.PathParam;
 
 @RestController
 @RequestMapping("/cuentas")
-@CrossOrigin(origins = "http://localhost:5173")
+@CrossOrigin(origins = {"http://localhost:3000", "http://localhost:3001", "http://localhost:3002"})
 public class CuentaController {
 
     @Autowired

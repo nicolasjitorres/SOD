@@ -1,4 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
+import { cerrarSesion } from "../../../HomeBanking/src/services/api";
 
 function Home() {
   const navigate = useNavigate();
@@ -7,10 +8,15 @@ function Home() {
   if (!accountId) {
     navigate("/");
   }
-  const handleClick = () => {
-    localStorage.clear();
-    navigate("/");
-  }
+  const handleClick = async () => {
+    try {
+      await cerrarSesion(accountId);
+      localStorage.clear();
+      navigate("/");
+    } catch (error) {
+      console.error("Error al cerrar sesión:", error);
+    }
+  };
 
   return (
     <div>

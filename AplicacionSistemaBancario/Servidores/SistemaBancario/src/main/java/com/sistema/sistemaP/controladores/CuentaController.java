@@ -20,7 +20,7 @@ import com.sistema.sistemaP.servicios.CuentaService;
 
 @RestController
 @RequestMapping("/cuentas")
-@CrossOrigin(origins = "http://localhost:5173")
+@CrossOrigin(origins = {"http://localhost:3000", "http://localhost:3001", "http://localhost:3002"})
 public class CuentaController {
 
     @Autowired

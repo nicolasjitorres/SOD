@@ -10,7 +10,7 @@ public class RespaldoService {
 
     private final RestTemplate restTemplate = new RestTemplate();
     private final String principalUrl = "http://localhost:8080/mensajes/recibir";
-    private final String respaldo2lUrl = "http://localhost:8082/mensajes/recibir";
+    private final String respaldo2Url = "http://localhost:8082/mensajes/suplente";
     private boolean principalVivo = true;
     private boolean actualPrincipal = false;
     private boolean respaldo2Principal = false;
@@ -18,31 +18,43 @@ public class RespaldoService {
     @Scheduled(fixedRate = 10000)
     public void enviarPulso() {
         try {
-            ResponseEntity<String> response = restTemplate.postForEntity(principalUrl, "Hola, soy respaldo 1.", String.class);
+            ResponseEntity<String> response = restTemplate.postForEntity(principalUrl, "¿Estas vivo? Soy respaldo 1.",
+                    String.class);
             System.out.println("Respuesta del sistema principal: " + response.getBody());
             principalVivo = true;
+            actualPrincipal = false;
+            respaldo2Principal = false;
         } catch (Exception e) {
             if (principalVivo) {
                 System.err.println("Servidor principal caído. Activando protocolo de respaldo.");
                 principalVivo = false;
+            }
+            if (!actualPrincipal) {
                 verificarRespaldo2();
+            }
+            if (!respaldo2Principal) {
                 actualPrincipal = true;
+                System.out.println("El sistema de respaldo 1 suplanta al principal momentaneamente.");
             }
         }
     }
 
-    public boolean getIsPrincipal(){
+    public boolean getIsPrincipal() {
         return actualPrincipal;
     }
 
-    public void verificarRespaldo2(){
+    public void verificarRespaldo2() {
         try {
-            ResponseEntity<String> response = restTemplate.postForEntity(respaldo2lUrl, "¿Suplantas al principal?", String.class);
-            if (response.getBody() == "positivo") {
-                System.out.println("El respaldo 2 suplanta al principal momentaneamente.");
+            ResponseEntity<String> response = restTemplate.postForEntity(respaldo2Url, "¿Estas vivo? Soy respaldo 1.",
+                    String.class);
+            if (response.getBody().equals("Estoy vivo")) {
+                System.out.println("El sistema de respaldo 2 suplanta al principal momentaneamente. " + response.getBody());
                 respaldo2Principal = true;
+                return;
             }
+            respaldo2Principal = false;
         } catch (Exception e) {
+            respaldo2Principal = false;
             System.out.println("El sistema de respaldo 2 se encuentra caído.");
         }
     }
