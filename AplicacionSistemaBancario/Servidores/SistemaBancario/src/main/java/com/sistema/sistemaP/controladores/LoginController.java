@@ -52,11 +52,9 @@ public class LoginController {
 
             if (token.getCuenta().getId().equals(accountId)) {
                 if (token.isEnUso()) {
-                    System.out.println("chau");
                     return ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE)
                             .body("¡Esta cuenta esta siendo usada desde otro cliente!");
                 }
-                System.out.println("hola");
                 token.setEnUso(true);
                 tokenRepository.saveAndFlush(token);
                 return ResponseEntity.ok()
@@ -65,7 +63,6 @@ public class LoginController {
             }
 
             List<Espera> listaDeEsperas = esperaRepository.findByCuenta(cuenta);
-            System.out.println(listaDeEsperas);
             if (listaDeEsperas.size() != 0) {
                 return ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE)
                         .body("Lo sentimos, se encuentra en espera...");
@@ -77,6 +74,7 @@ public class LoginController {
         }
 
         token.setCuenta(cuenta);
+        token.setEnUso(true);
         tokenRepository.saveAndFlush(token);
         return ResponseEntity.ok()
                 .body(Map.of("accountId", cuenta.getId(), "message", "Login exitoso", "saldo", cuenta.getSaldo()));
