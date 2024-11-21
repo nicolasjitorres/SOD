@@ -13,7 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/clientes")
-@CrossOrigin(origins = {"http://localhost:3000", "http://localhost:3001", "http://localhost:3002"})
+@CrossOrigin(origins = {"http://sd.sod:3000", "http://sd.sod:3001", "http://sd.sod:3002"})
 public class ClienteController {
 
     @Autowired

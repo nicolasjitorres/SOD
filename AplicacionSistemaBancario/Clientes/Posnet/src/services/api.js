@@ -1,9 +1,12 @@
 import axios from "axios";
 
 const servers = [
-  "http://localhost:8080",
-  "http://localhost:8081",
-  "http://localhost:8082",
+  // "http://localhost:8080",
+  // "http://localhost:8081",
+  // "http://localhost:8082",
+  "http://sd.sod:8080",
+  "http://sd.sod:8081",
+  "http://sd.sod:8082",
 ];
 
 let mensaje = "No se pudo conectar a ningún servidor.";
